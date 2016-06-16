@@ -28,6 +28,11 @@ class Sentence:
             self.text=self.text.replace(original[i],replacement[i])
         self.text=re.sub( '\s+', ' ',self.text ).strip()
         self.tokens=self.text.split(' ')
+        return self.tokens
 
 
-        
+# testing
+#sen=Sentence("in litteris 15 sunt digesta (8), ut lectione eorum, quasi repensitatione rerum, et Deus honoretur et homo confortetur;")
+#tokens=sen.AdvancedTokenizer()
+#print(len(tokens))
+#print(tokens)

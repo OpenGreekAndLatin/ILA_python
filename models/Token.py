@@ -3,8 +3,7 @@ import re
 
 class Token:
     'Documentation should be written'
-    def __init__(self):
-        print("instance is created")
+
     
 
     @classmethod
@@ -24,10 +23,10 @@ class Token:
 
     @classmethod
     def isSimilarto(self, tok1, tok2):
-        'Levenshtein method, this method should be implemented later'
+        'Levenshtein method, this method will be implemented later'
         return True
-    
-    
-        
-t= Token()
-print(t.removeNonAlphanumeric("Hi, How are you doing??"))
+
+
+        # testing
+#t= Token()
+#print(t.removeNonAlphanumeric("Hi, How are you doing??"))
