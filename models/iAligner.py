@@ -21,7 +21,7 @@ class iAligner:
     matrix = []
     optimal_alignment = []
 
-    def __init__(self,sentence1,sentence2):
+    def __init__(self,sentence1="",sentence2=""):
         self.sentence1.setText(sentence1.strip())
         self.sentence2.setText(sentence2.strip())
 
@@ -39,7 +39,7 @@ class iAligner:
 
         m= len(self.sentence1.tokens)
         n= len(self.sentence2.tokens)
-        self.matrix=[[{'val':0,'pointer':''} for x in range(n+1)] for y in range(m+1)]  #reset Matrix Variable
+        self.matrix=[[{'val':0,'pointer':'NW'} for x in range(n+1)] for y in range(m+1)]  #reset Matrix Variable
         for i in range(m):
             self.matrix[i + 1][0]['val'] = (i+1)*self.gap
         for i in range(n):
@@ -53,7 +53,7 @@ class iAligner:
                 sc=self.mismatch
                 if self.isAligned(self.sentence1.tokens[i-1],self.sentence2.tokens[j-1]):
                     sc=self.match
-                ma=self.matrix[i][j]['val']+sc
+                ma=self.matrix[i-1][j-1]['val']+sc
                 hgap = self.matrix[i - 1][j]['val'] + self.gap
                 vgap = self.matrix[i][j - 1]['val'] + self.gap
                 MaxValue=max(ma,hgap,vgap)
@@ -65,6 +65,57 @@ class iAligner:
 
                 self.matrix[i][j]['val']=MaxValue
                 self.matrix[i][j]['pointer']=pointer
+
+
+    def getOptimalAlignment(self):
+        m = len(self.sentence1.tokens)
+        n = len(self.sentence2.tokens)
+
+        i=m
+        j=n
+        while i >=0 and j>=0:
+            base1=self.sentence1.tokens[i-1]
+            base2=self.sentence2.tokens[j-1]
+            pointer=self.matrix[i][j]['pointer']
+
+            if pointer=="NW":
+                i-=1
+                j-=1
+                if self.isAligned(base1,base2):
+                    self.optimal_alignment.append({'sentence1': base1, 'sentence2': base2, 'relation': "Aligned"})
+                else:
+                    self.optimal_alignment.append({'sentence1': base1, 'sentence2': base2, 'relation': "Not Aligned"})
+            elif pointer=="LE":
+                j-=1
+                self.optimal_alignment.append({'sentence1': "--", 'sentence2': base2, 'relation': "Not Aligned"})
+            elif pointer=="UP":
+                i-=1
+                self.optimal_alignment.append({'sentence1': base1, 'sentence2': "--", 'relation': "Not Aligned"})
+
+        if i < 0:
+            while j >= 0:
+                base2 = self.sentence2.tokens[j-1]
+                j-=1
+                self.optimal_alignment.append({'sentence1': "--", 'sentence2': base2, 'relation': "Not Aligned"})
+        if j < 0 :
+            while i >= 0 :
+                base1 = self.sentence1.tokens[j-1]
+                i-=1
+                self.optimal_alignment.append({'sentence1': base1, 'sentence2': "--", 'relation': "Not Aligned"})
+
+        self.optimal_alignment.reverse()
+
+
+
+    # PairwaiseAlignment: align two sentences
+
+    def align(self, sen1, sen2):
+        self.setSentences(sen1,sen2)
+        self.initialization()
+        self.fillMatrix()
+        self.getOptimalAlignment()
+        self.printArray()
+        return self.optimal_alignment
 
 
 
@@ -84,10 +135,33 @@ class iAligner:
         n= len(self.sentence2.tokens)
         print(self.sentence1.tokens)
         print(self.sentence2.tokens)
-        print(m)
-        print(n)
-        print(self.matrix)
-        for i in range(m+1):
-            for j in range(n+1):
-                print(self.matrix[i][j])
+        columns=["",""]+self.sentence2.tokens
+        rows=[""]+self.sentence1.tokens
 
+        output=[]
+
+        print("  \t|\t  ".join(columns))
+        for i in range(m+1):
+            output=[]
+            output.append(rows[i])
+            for j in range(n+1):
+                output.append(("%s (%s)" % (self.matrix[i][j]['val'],self.matrix[i][j]['pointer'])))
+            print("\t|\t".join(output))
+            print("\n")
+
+    def printMatrix(self):
+        m= len(self.sentence1.tokens)
+        n= len(self.sentence2.tokens)
+        columns=["",""]+self.sentence2.tokens
+        rows=[""]+self.sentence1.tokens
+
+        output=[]
+
+        html="<td></td>".join(columns)
+        for i in range(m+1):
+            output=[]
+            output.append(rows[i])
+            for j in range(n+1):
+                output.append(("%s (%s)" % (self.matrix[i][j]['val'],self.matrix[i][j]['pointer'])))
+            print("\t|\t".join(output))
+            print("\n")
