@@ -87,21 +87,21 @@ class iAligner:
                     self.optimal_alignment.append({'sentence1': base1, 'sentence2': base2, 'relation': "Not Aligned"})
             elif pointer=="LE":
                 j-=1
-                self.optimal_alignment.append({'sentence1': "--", 'sentence2': base2, 'relation': "Not Aligned"})
+                self.optimal_alignment.append({'sentence1': "", 'sentence2': base2, 'relation': "Not Aligned"})
             elif pointer=="UP":
                 i-=1
-                self.optimal_alignment.append({'sentence1': base1, 'sentence2': "--", 'relation': "Not Aligned"})
+                self.optimal_alignment.append({'sentence1': base1, 'sentence2': "", 'relation': "Not Aligned"})
 
         if i < 0:
             while j >= 0:
                 base2 = self.sentence2.tokens[j-1]
                 j-=1
-                self.optimal_alignment.append({'sentence1': "--", 'sentence2': base2, 'relation': "Not Aligned"})
+                self.optimal_alignment.append({'sentence1': "", 'sentence2': base2, 'relation': "Not Aligned"})
         if j < 0 :
             while i >= 0 :
                 base1 = self.sentence1.tokens[j-1]
                 i-=1
-                self.optimal_alignment.append({'sentence1': base1, 'sentence2': "--", 'relation': "Not Aligned"})
+                self.optimal_alignment.append({'sentence1': base1, 'sentence2': "", 'relation': "Not Aligned"})
 
         self.optimal_alignment.reverse()
 

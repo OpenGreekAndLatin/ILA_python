@@ -8,7 +8,10 @@ args=sys.argv
 inpt=""
 outpt=""
 
+
+
 #first parameter is the input file
+# the input should be in CSV format
 try:
     inpt=args[1]
 except IndexError:
@@ -25,8 +28,8 @@ print("Input: "+os.path.realpath(inpt))
 print("Output: "+outpt)
 
 #read the input file
-f=open(os.path.realpath(inpt),"r")
-content=f.read()
+f=open(os.path.realpath(inpt), "r")
+content = f.read()
 f.close()
 
 #declare an aligner
