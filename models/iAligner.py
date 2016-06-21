@@ -46,6 +46,7 @@ class iAligner:
             self.matrix[0][i + 1]['val'] = (i+1)*self.gap
 
     def fillMatrix(self):
+        self.matrix = []
         m = len(self.sentence1.tokens)
         n = len(self.sentence2.tokens)
         for i in range(1,m+1):
@@ -114,7 +115,7 @@ class iAligner:
         self.initialization()
         self.fillMatrix()
         self.getOptimalAlignment()
-        self.printArray()
+
         return self.optimal_alignment
 
 
@@ -123,7 +124,24 @@ class iAligner:
     def isAligned(self,w1,w2):
         w1=w1.strip()
         w2=w2.strip()
-        if w1==w2:
+        # ignore NonAlphanumeric
+        if self.NonAlphanumeric == 1 :
+            w1 = self.token.removeDiacritics(w1)
+            w2 = self.token.removeDiacritics(w2)
+        # ignore 	diacritics
+        if self.diacritics == 1 :
+            w1 = self.token.removeDiacritics(w1)
+            w2 = self.token.removeDiacritics(w2)
+        # convert words to lower case
+        if self.casesensitive == 1 :
+            w1 = self.token.lowercase(w1)
+            w1 = self.token.lowercase(w1)
+        similar=False
+        # levenshtein
+        if self.levenshtein == 1:
+            similar=self.token.isSimilarto(w1,w2)
+
+        if w1==w2 or similar:
             return True
         else:
             return False

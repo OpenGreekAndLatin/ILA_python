@@ -29,10 +29,19 @@ print("Output: "+outpt)
 
 #read the input file
 f=open(os.path.realpath(inpt), "r")
-content = f.read()
+lines = f.readlines()
 f.close()
 
 #declare an aligner
-al=iAligner()
+aligner=iAligner()
 viewer=Viewer()
+html=[]
+resources= lines[0]
+for line in lines[1:]:
+    sentences=line.split("\t")
+    alignment = aligner.align(sentences[0], sentences[1])
+    html.append(viewer.alignmentToHtmlCode(alignment))
+viewer.exportHtml("<br>".join(html))
+
+
 
