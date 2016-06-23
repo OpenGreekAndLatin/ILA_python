@@ -12,12 +12,19 @@ class Token:
 
     @classmethod
     def removeDiacritics(self, tok):
-
+        original = ["ῆ", "ῒ", "ῒ", "ῖ", "ῶ", "ά", "ά", "ὰ", "έ", "ὲ", "ή", "ὴ", "ί", "ὶ", "ό", "ό", "ὸ", "ύ", "ὺ",
+                          "ώ", "ὼ", "ᾴ", "ᾲ", "ῄ", "ῂ", "ῴ", "ῲ", "Ά", "Ὰ", "Έ", "Ὲ", "Ὴ", "Ή", "Ί", "Ὶ", "Ὸ", "Ό", "Ύ",
+                          "Ὺ", "Ώ", "Ὼ"]
+        replacement = ["η", "ι", "ι", "ι", "ω", "α", "α", "α", "ε", "ε", "η", "η", "ι", "ι", "ο", "ο", "ο", "υ",
+                             "υ", "ω", "ω", "ᾳ", "ᾳ", "ῃ", "ῃ", "ῳ", "ῳ", "Α", "Α", "Ε", "Ε", "Η", "Η", "Ι", "Ι", "Ο",
+                             "Ο", "Υ", "Υ", "Ω", "Ω"]
+        for i in range(0,len(original)):
+            tok=tok.replace(original[i],replacement[i])
         return tok
+
     
     @classmethod
     def removeNonAlphanumeric(self, tok):
-        '$temp=preg_replace("/\P{L}+/u", " ", $token); // replace non letter charecters with whitespace'
         temp=''.join([i for i in tok if i.isalpha() or i is " "])    # replace non letter characters with whitespace
         return temp.replace("  "," ").strip()                       # replace double whitespaces with single whitespace
 
@@ -48,8 +55,3 @@ class Token:
         ratio = (lensum - ldist) / lensum
         return (ratio > 0.66)
 
-
-
-        # testing
-#t= Token()
-#print(t.removeNonAlphanumeric("Hi, How are you doing??"))

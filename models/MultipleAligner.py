@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
 from models.iAligner import iAligner
 from models.Token import Token
 
@@ -6,29 +9,29 @@ class MultipleAligner(iAligner):
     def __init__(self):
         self.token=Token()
 
-    def Align(self, sentences):
+
+    def align(self, sentences):
         n=len(sentences)
         if n > 1:
-            alignment=self.align(sentences[0],sentences[1])
+            alignment=super(MultipleAligner,self).align(sentences[0],sentences[1])
             sen12=[]
             newSentences=[]
             for couple in alignment:
                 sen12.append("||".join([couple['sentence1'],couple['sentence2']]))
-            newSentences[0]=" ".join(sen12)
+            newSentences.append(" ".join(sen12))
             for i in range(2,n):
                 newSentences.append(sentences[i])
-            return self.Align(sentences)
+            return self.align(newSentences)
         else:
             return sentences
 
 
 
     def fillMatrix(self):
-        self.matrix=[]
         m = len(self.sentence1.tokens)
         n = len(self.sentence2.tokens)
         for i in range(1,m+1):
-            tokens12=self.sentence1.tokens[i].split("||")
+            tokens12=self.sentence1.tokens[i-1].split("||")
             for j in range(1,n+1):
                 sc=self.mismatch
                 if self.isAligned_multi(tokens12,self.sentence2.tokens[j-1]):
@@ -45,6 +48,7 @@ class MultipleAligner(iAligner):
 
                 self.matrix[i][j]['val']=MaxValue
                 self.matrix[i][j]['pointer']=pointer
+
 
     def isAligned_multi(self,tokenArr,token):
         aligned=False
