@@ -5,7 +5,7 @@ import os.path
 
 
 class Viewer:
-    templatefile="../templates/header.html"
+    templatefile="./templates/header.html"
 
     # default constuctor
     def __init__(self):
