@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Syntax-Based Intra-Language Alignment tool documentation build configuration file, created by
-# sphinx-quickstart on Fri Jun 24 15:26:04 2016.
+# Syntax Bases Intra-Language Alignment Tool (iAligner) documentation build configuration file, created by
+# sphinx-quickstart on Fri Jun 24 15:38:11 2016.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -30,16 +30,7 @@
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.doctest',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.ifconfig',
-    'sphinx.ext.viewcode',
-    'sphinx.ext.githubpages',
-]
+extensions = []
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -58,7 +49,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Syntax-Based Intra-Language Alignment tool'
+project = 'Syntax Bases Intra-Language Alignment Tool (iAligner)'
 copyright = '2016, Tariq Yousef'
 author = 'Tariq Yousef'
 
@@ -76,7 +67,7 @@ release = '0.0.1'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = 'Python'
+language = None
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -90,7 +81,7 @@ language = 'Python'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = []
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -143,7 +134,7 @@ html_theme = 'alabaster'
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
 #
-# html_title = 'Syntax-Based Intra-Language Alignment tool v0.0.1'
+# html_title = 'Syntax Bases Intra-Language Alignment Tool (iAligner) v0.0.1'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #
@@ -243,7 +234,7 @@ html_static_path = ['_static']
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Syntax-BasedIntra-LanguageAlignmenttooldoc'
+htmlhelp_basename = 'SyntaxBasesIntra-LanguageAlignmentTooliAlignerdoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -269,7 +260,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'Syntax-BasedIntra-LanguageAlignmenttool.tex', 'Syntax-Based Intra-Language Alignment tool Documentation',
+    (master_doc, 'SyntaxBasesIntra-LanguageAlignmentTooliAligner.tex', 'Syntax Bases Intra-Language Alignment Tool (iAligner) Documentation',
      'Tariq Yousef', 'manual'),
 ]
 
@@ -305,7 +296,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'syntax-basedintra-languagealignmenttool', 'Syntax-Based Intra-Language Alignment tool Documentation',
+    (master_doc, 'syntaxbasesintra-languagealignmenttoolialigner', 'Syntax Bases Intra-Language Alignment Tool (iAligner) Documentation',
      [author], 1)
 ]
 
@@ -320,8 +311,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'Syntax-BasedIntra-LanguageAlignmenttool', 'Syntax-Based Intra-Language Alignment tool Documentation',
-     author, 'Syntax-BasedIntra-LanguageAlignmenttool', 'One line description of project.',
+    (master_doc, 'SyntaxBasesIntra-LanguageAlignmentTooliAligner', 'Syntax Bases Intra-Language Alignment Tool (iAligner) Documentation',
+     author, 'SyntaxBasesIntra-LanguageAlignmentTooliAligner', 'One line description of project.',
      'Miscellaneous'),
 ]
 
@@ -340,92 +331,3 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #
 # texinfo_no_detailmenu = False
-
-
-# -- Options for Epub output ----------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-epub_author = author
-epub_publisher = author
-epub_copyright = copyright
-
-# The basename for the epub file. It defaults to the project name.
-# epub_basename = project
-
-# The HTML theme for the epub output. Since the default themes are not
-# optimized for small screen space, using the same theme for HTML and epub
-# output is usually not wise. This defaults to 'epub', a theme designed to save
-# visual space.
-#
-# epub_theme = 'epub'
-
-# The language of the text. It defaults to the language option
-# or 'en' if the language is not set.
-#
-# epub_language = ''
-
-# The scheme of the identifier. Typical schemes are ISBN or URL.
-# epub_scheme = ''
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A tuple containing the cover image and cover page html template filenames.
-#
-# epub_cover = ()
-
-# A sequence of (type, uri, title) tuples for the guide element of content.opf.
-#
-# epub_guide = ()
-
-# HTML files that should be inserted before the pages created by sphinx.
-# The format is a list of tuples containing the path and title.
-#
-# epub_pre_files = []
-
-# HTML files that should be inserted after the pages created by sphinx.
-# The format is a list of tuples containing the path and title.
-#
-# epub_post_files = []
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
-
-# The depth of the table of contents in toc.ncx.
-#
-# epub_tocdepth = 3
-
-# Allow duplicate toc entries.
-#
-# epub_tocdup = True
-
-# Choose between 'default' and 'includehidden'.
-#
-# epub_tocscope = 'default'
-
-# Fix unsupported image types using the Pillow.
-#
-# epub_fix_images = False
-
-# Scale large images.
-#
-# epub_max_image_width = 0
-
-# How to display URL addresses: 'footnote', 'no', or 'inline'.
-#
-# epub_show_urls = 'inline'
-
-# If false, no index is generated.
-#
-# epub_use_index = True
-
-
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
