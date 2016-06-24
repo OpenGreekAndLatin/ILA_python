@@ -88,8 +88,7 @@ class Viewer:
         return ret
 
     # show the alignment of multiple sentences as html table
-    def mAlignmentToHtmlCode(self,txt,sentences):
-        arr=self.getArray(txt)
+    def mAlignmentToHtmlCode(self,arr,sentences):
         table=["" for x in range(len(sentences))]  #reset Matrix Variable
         for vector in arr:
             coloredcolumns=self.coloring(vector)

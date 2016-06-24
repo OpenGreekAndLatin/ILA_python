@@ -23,7 +23,8 @@ class MultipleAligner(iAligner):
                 newSentences.append(sentences[i])
             return self.align(newSentences)
         else:
-            return sentences
+            #print(sentences[0])
+            return self.getArray(sentences[0])
 
 
 
@@ -56,3 +57,26 @@ class MultipleAligner(iAligner):
             if self.isAligned(token,t):
                 aligned=True
         return aligned
+
+
+    def getArray(self, txt):
+        arr = txt.split(" ")
+        tds = []
+        ret=[]
+        maxsize=0
+        for v in arr:
+            cells = v.split("||")
+            #cells.reverse()
+            if maxsize < len(cells):
+                maxsize=len(cells)
+            tds.append(cells)
+
+        for column in tds:
+            if len(column) < maxsize:
+                temp=["" for x in range (maxsize-len(column))]
+                column= temp +column
+            column.reverse()
+            ret.append(column)
+        return ret
+
+

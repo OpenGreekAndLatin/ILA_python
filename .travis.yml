@@ -1,6 +1,5 @@
 language: python
 python:
-  - "2.7"
   - "3.4"
 # command to install dependencies
 install:
@@ -8,3 +7,5 @@ install:
 # command to run tests
 script:
     - coverage run --source=ILA_python setup.py test
+after_success:
+    - coveralls

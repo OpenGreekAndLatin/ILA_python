@@ -74,7 +74,7 @@ class iAligner:
 
                 self.matrix[i][j]['val']=MaxValue
                 self.matrix[i][j]['pointer']=pointer
-        self.printArray()
+
 
 
     # function to extract the optimal alignment from the matrix
@@ -124,7 +124,6 @@ class iAligner:
         self.initialization()
         self.fillMatrix()
         self.getOptimalAlignment()
-
         return self.optimal_alignment
 
 
@@ -155,8 +154,7 @@ class iAligner:
         else:
             return False
 
-
-    # print the matrix, this function is used for testing purposes
+"""    # print the matrix, this function is used for testing purposes
     def printArray(self):
         m= len(self.sentence1.tokens)
         n= len(self.sentence2.tokens)
@@ -172,4 +170,7 @@ class iAligner:
                 output.append(("%s (%s)" % (self.matrix[i][j]['val'],self.matrix[i][j]['pointer'])))
             print("\t|\t".join(output))
             print("\n")
+
+            """
+
 
