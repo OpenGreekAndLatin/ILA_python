@@ -1,8 +1,8 @@
 from unittest import TestCase
-from models.Sentence import Sentence
-from models.Token import Token
-from models.iAligner import iAligner
-from models.MultipleAligner import MultipleAligner
+from iAlignment.Sentence import Sentence
+from iAlignment.Token import Token
+from iAlignment.iAligner import iAligner
+from iAlignment.MultipleAligner import MultipleAligner
 
 class UTest(TestCase):
 

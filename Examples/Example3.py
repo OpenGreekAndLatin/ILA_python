@@ -3,9 +3,9 @@
 
 # Multiple Alignment
 
-from models.iAligner import iAligner
-from models.Viewer import Viewer
-from models.MultipleAligner import MultipleAligner
+from iAlignment.iAligner import iAligner
+from iAlignment.Viewer import Viewer
+from iAlignment.MultipleAligner import MultipleAligner
 import os.path
 
 sentence1="how are you doing"

@@ -1,5 +1,5 @@
-from models.iAligner import iAligner
-from models.Viewer import Viewer
+from iAlignment.iAligner import iAligner
+from iAlignment.Viewer import Viewer
 
 #Example 1: simple alignment, align two sentences
 sentence1="And the earth was waste and void; and darkness was upon the face of the deep: and the Spirit of God moved upon the face of the waters. And God said, Let there be light: and there was light."

@@ -1,5 +1,5 @@
-from models.iAligner import iAligner
-from models.Viewer import Viewer
+from iAlignment.iAligner import iAligner
+from iAlignment.Viewer import Viewer
 import os.path
 
 #Example 2: read parallel sentences from CSV file

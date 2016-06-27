@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='ILA_python',
+    name='iAlignment',
     version="0.0.1",
     packages=find_packages(exclude=["Examples", "Test"]),
     url='https://github.com/OpenGreekAndLatin/ILA_python',

@@ -1,7 +1,7 @@
 import sys
 import os.path
-from models.iAligner import iAligner
-from models.Viewer import Viewer
+from iAlignment.iAligner import iAligner
+from iAlignment.Viewer import Viewer
 
 #read command line arguments
 args=sys.argv

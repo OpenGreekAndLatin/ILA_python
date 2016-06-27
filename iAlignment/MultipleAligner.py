@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-from models.iAligner import iAligner
-from models.Token import Token
+from iAlignment.iAligner import iAligner
+from iAlignment.Token import Token
 
 class MultipleAligner(iAligner):
 

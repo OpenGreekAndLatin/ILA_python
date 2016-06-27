@@ -1,6 +1,6 @@
-from models.iAligner import iAligner
-from models.Viewer import Viewer
-from models.MultipleAligner import MultipleAligner
+from iAlignment.iAligner import iAligner
+from iAlignment.Viewer import Viewer
+from iAlignment.MultipleAligner import MultipleAligner
 import os.path
 
 #Example 4: read parallel sentences from CSV file
@@ -22,5 +22,5 @@ for line in lines[1:]:
     sentences=line.split("\t")
     alignment = aligner.align(sentences)
     html.append(viewer.mAlignmentToHtmlCode(alignment,sentences))
-viewer.exportHtml("<br>".join(html),"OutputExample3.html")
+viewer.exportHtml("<br>".join(html),"OutputExample4.html")
 
