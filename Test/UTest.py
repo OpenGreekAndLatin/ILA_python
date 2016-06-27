@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
 from unittest import TestCase
 from iAlignment.Sentence import Sentence
 from iAlignment.Token import Token

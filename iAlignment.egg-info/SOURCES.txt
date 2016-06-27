@@ -1,0 +1,12 @@
+setup.py
+iAlignment/MultipleAligner.py
+iAlignment/Sentence.py
+iAlignment/Token.py
+iAlignment/Viewer.py
+iAlignment/__init__.py
+iAlignment/iAligner.py
+iAlignment.egg-info/PKG-INFO
+iAlignment.egg-info/SOURCES.txt
+iAlignment.egg-info/dependency_links.txt
+iAlignment.egg-info/not-zip-safe
+iAlignment.egg-info/top_level.txt
