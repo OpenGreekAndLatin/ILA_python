@@ -6,7 +6,7 @@ import os.path
 # sen1_trans1   sen1_trans2 sen1_trans3
 # sen2_trans1   sen2_trans2 sen2_trans3
 
-filepath="example2.csv"
+filepath="data/example2.csv"
 aligner = iAligner()
 viewer = Viewer()
 
@@ -20,6 +20,8 @@ resources= lines[0]
 for line in lines[1:]:
     sentences=line.split("\t")
     alignment = aligner.align(sentences[0], sentences[1])
+    html.append(viewer.alignmentToText(alignment))
     html.append(viewer.alignmentToHtmlCode(alignment))
-viewer.exportHtml("<br>".join(html))
+
+viewer.exportHtml("<br>".join(html),"outputExample2.html")
 

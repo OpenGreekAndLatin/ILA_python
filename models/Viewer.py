@@ -112,3 +112,15 @@ class Viewer:
     # function to sort a dictionary and maitain idex association
     def asort(dd):
         return sorted(dd.items(), key=lambda x: x[1], reverse=True)
+
+    def alignmentToText(self,alignment, outputfile="test.html"):
+        text=[[],[]]
+        for column in alignment:
+            if column['relation']=="Aligned":
+                text[0].append(column['sentence1'])
+                text[1].append(column['sentence2'])
+            else:
+                text[0].append("<span class='naligned'> " + column['sentence1'] + " </span>")
+                text[1].append("<span class='naligned'> " + column['sentence2'] + " </span>")
+        div="<div class='row'><div class='col-md-6'>"+" ".join(text[0])+"</div><div class='col-md-6'>"+" ".join(text[1])+"</div></div>"
+        return div #[" ".join(text[0])," ".join(text[1])]

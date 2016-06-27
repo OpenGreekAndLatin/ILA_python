@@ -12,5 +12,8 @@ viewer = Viewer()
 
 # run the alignment
 alignment = aligner.align(sentence1, sentence2)
+
 # view the alignment results in html table
-viewer.alignmentToHTML(alignment)
+html=viewer.alignmentToText(alignment)
+html+=viewer.alignmentToHtmlCode(alignment)
+viewer.exportHtml(html,"outputExample1.html") #"<br>".join(text)
