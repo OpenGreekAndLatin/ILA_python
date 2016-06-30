@@ -16,8 +16,10 @@ sentence4="what are you doing"
 sentences=[sentence1,sentence2,sentence3,sentence4]
 viewer=Viewer()
 
+
 mAlign=MultipleAligner()
 mAlign.setOptions(1)
 alignment=mAlign.align(sentences)
+print(alignment)
 html=viewer.mAlignmentToHtmlCode(alignment,sentences)
 viewer.exportHtml(html,"OutputExample3.html")

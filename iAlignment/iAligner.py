@@ -52,7 +52,6 @@ class iAligner:
         for i in range(n):
             self.matrix[0][i + 1]['val'] = (i+1)*self.gap
 
-
     def fillMatrix(self):
 
         m = len(self.sentence1.tokens)
@@ -118,19 +117,13 @@ class iAligner:
 
         self.optimal_alignment.reverse()
 
-
-
-    # PairwaiseAlignment: align two sentences
+    # PairwiseAlignment: align two sentences
     def align(self, sen1, sen2):
         self.setSentences(sen1,sen2)
         self.initialization()
         self.fillMatrix()
         self.getOptimalAlignment()
         return self.optimal_alignment
-
-
-
-
 
     # check if w1, w2 are aligned according to the alignment options defined by the user
     def isAligned(self, w1, w2):
@@ -167,23 +160,6 @@ class iAligner:
             return [True,"Aligned-combination"]
         else:
             return [False,"notAligned"]
-"""    # print the matrix, this function is used for testing purposes
-    def printArray(self):
-        m= len(self.sentence1.tokens)
-        n= len(self.sentence2.tokens)
-        print(self.sentence1.tokens)
-        print(self.sentence2.tokens)
-        columns=["",""]+self.sentence2.tokens
-        rows=[""]+self.sentence1.tokens
-        print("  \t|\t  ".join(columns))
-        for i in range(m+1):
-            output=[]
-            output.append(rows[i])
-            for j in range(n+1):
-                output.append(("%s (%s)" % (self.matrix[i][j]['val'],self.matrix[i][j]['pointer'])))
-            print("\t|\t".join(output))
-            print("\n")
 
-            """
 
 
