@@ -44,8 +44,8 @@ class UTest(TestCase):
     def testiAligner(self):
         self.aligner.setOptions(1,0,1,1)
         alignment = self.aligner.align("How are you doing?","what Are YOU doing")
-        self.assertIn({"sentence1": "are", "sentence2": "Are", "relation": "Aligned"},alignment)
-        self.assertIn({"sentence1": "How", "sentence2": "what", "relation": "Not Aligned"},alignment)
+        self.assertIn({"sentence1": "doing", "sentence2": "doing", "relation": "Aligned-complete"},alignment)
+        self.assertIn({"sentence1": "How", "sentence2": "what", "relation": "notAligned"},alignment)
 
     #def testMultipleAligner(self):
 
