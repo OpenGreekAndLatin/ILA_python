@@ -4,4 +4,4 @@
 
 # Intra Language Alignment tool
 
-The tool allows automatic alignment between up to multiple texts in the same language, for the detection of textual variants and minor instances of re-use.
+The tool allows automatic alignment between multiple texts in the same language, for the detection of textual variants and minor instances of re-use.

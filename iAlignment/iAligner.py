@@ -46,36 +46,39 @@ class iAligner:
         self.matrix = []
         m= len(self.sentence1.tokens)
         n= len(self.sentence2.tokens)
-        self.matrix=[[{'val':0,'pointer':'NW'} for x in range(n+1)] for y in range(m+1)]  #reset Matrix Variable
+        self.matrix=[[{'val':0,'pointer':'NW', 'class': ''} for x in range(n+1)] for y in range(m+1)]  #reset Matrix Variable
         for i in range(m):
             self.matrix[i + 1][0]['val'] = (i+1)*self.gap
         for i in range(n):
             self.matrix[0][i + 1]['val'] = (i+1)*self.gap
 
-    # fill the matrix with the suitable values according to Needlemann wunsch algorithm
+
     def fillMatrix(self):
 
         m = len(self.sentence1.tokens)
         n = len(self.sentence2.tokens)
-        for i in range(1,m+1):
-            for j in range(1,n+1):
-                sc=self.mismatch
-                if self.isAligned(self.sentence1.tokens[i-1],self.sentence2.tokens[j-1]):
-                    sc=self.match
-                ma=self.matrix[i-1][j-1]['val']+sc
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                sc = self.mismatch
+                aligned=self.isAligned(self.sentence1.tokens[i - 1], self.sentence2.tokens[j - 1])
+                if aligned[0]:
+                    sc = self.match
+                ma = self.matrix[i - 1][j - 1]['val'] + sc
                 hgap = self.matrix[i - 1][j]['val'] + self.gap
                 vgap = self.matrix[i][j - 1]['val'] + self.gap
-                MaxValue=max(ma,hgap,vgap)
-                pointer="NW"
-                if MaxValue==hgap and MaxValue > ma:
-                    pointer="UP"
-                elif MaxValue==vgap and MaxValue > ma:
-                    pointer="LE"
+                MaxValue = max(ma, hgap, vgap)
+                pointer = "NW"
+                alignedclass=aligned[1]
+                if MaxValue == hgap and MaxValue > ma:
+                    pointer = "UP"
+                    alignedclass="Gap"
+                elif MaxValue == vgap and MaxValue > ma:
+                    pointer = "LE"
+                    alignedclass = "Gap"
 
-                self.matrix[i][j]['val']=MaxValue
-                self.matrix[i][j]['pointer']=pointer
-
-
+                self.matrix[i][j]['val'] = MaxValue
+                self.matrix[i][j]['pointer'] = pointer
+                self.matrix[i][j]['class'] = alignedclass
 
     # function to extract the optimal alignment from the matrix
     def getOptimalAlignment(self):
@@ -88,31 +91,30 @@ class iAligner:
             base1=self.sentence1.tokens[i-1]
             base2=self.sentence2.tokens[j-1]
             pointer=self.matrix[i][j]['pointer']
+            alignedclass=self.matrix[i][j]['class']
 
             if pointer=="NW":
                 i-=1
                 j-=1
-                if self.isAligned(base1,base2):
-                    self.optimal_alignment.append({'sentence1': base1, 'sentence2': base2, 'relation': "Aligned"})
-                else:
-                    self.optimal_alignment.append({'sentence1': base1, 'sentence2': base2, 'relation': "Not Aligned"})
+                self.optimal_alignment.append({'sentence1': base1, 'sentence2': base2, 'relation': alignedclass})
+
             elif pointer=="LE":
                 j-=1
-                self.optimal_alignment.append({'sentence1': "", 'sentence2': base2, 'relation': "Not Aligned"})
+                self.optimal_alignment.append({'sentence1': "", 'sentence2': base2, 'relation': alignedclass})
             elif pointer=="UP":
                 i-=1
-                self.optimal_alignment.append({'sentence1': base1, 'sentence2': "", 'relation': "Not Aligned"})
+                self.optimal_alignment.append({'sentence1': base1, 'sentence2': "", 'relation': alignedclass})
 
         if i <= 0:
             while j > 0:
                 base2 = self.sentence2.tokens[j-1]
                 j-=1
-                self.optimal_alignment.append({'sentence1': "", 'sentence2': base2, 'relation': "Not Aligned"})
+                self.optimal_alignment.append({'sentence1': "", 'sentence2': base2, 'relation': "Gap"})
         if j <= 0 :
             while i > 0 :
                 base1 = self.sentence1.tokens[i-1]
                 i-=1
-                self.optimal_alignment.append({'sentence1': base1, 'sentence2': "", 'relation': "Not Aligned"})
+                self.optimal_alignment.append({'sentence1': base1, 'sentence2': "", 'relation': "Gap"})
 
         self.optimal_alignment.reverse()
 
@@ -128,32 +130,43 @@ class iAligner:
 
 
 
+
+
     # check if w1, w2 are aligned according to the alignment options defined by the user
-    def isAligned(self,w1,w2):
-        w1=w1.strip()
-        w2=w2.strip()
+    def isAligned(self, w1, w2):
+        w1 = w1.strip()
+        w2 = w2.strip()
+        if w1 == w2 :
+            return [True,"Aligned-complete"]
         # ignore NonAlphanumeric
-        if self.NonAlphanumeric == 1 :
+        if self.NonAlphanumeric == 1:
             w1 = self.token.removeDiacritics(w1)
             w2 = self.token.removeDiacritics(w2)
+            if w1==w2:
+                return[True,"Aligned-removedNonAlphanumeric"]
         # ignore 	diacritics
-        if self.diacritics == 1 :
+        if self.diacritics == 1:
             w1 = self.token.removeDiacritics(w1)
             w2 = self.token.removeDiacritics(w2)
+            if w1 == w2:
+                return [True, "Aligned-removeddiacritics"]
         # convert words to lower case
-        if self.casesensitive == 1 :
+        if self.casesensitive == 0:
             w1 = self.token.lowercase(w1)
             w1 = self.token.lowercase(w1)
-        similar=False
+            if w1 == w2:
+                return [True, "Aligned-case"]
+        similar = False
         # levenshtein
         if self.levenshtein == 1:
-            similar=self.token.isSimilarto(w1,w2)
+            similar = self.token.isSimilarto(w1, w2)
+            if similar:
+                return [True, "Aligned-levenshtein"]
 
-        if w1==w2 or similar:
-            return True
+        if w1 == w2:
+            return [True,"Aligned-combination"]
         else:
-            return False
-
+            return [False,"notAligned"]
 """    # print the matrix, this function is used for testing purposes
     def printArray(self):
         m= len(self.sentence1.tokens)
